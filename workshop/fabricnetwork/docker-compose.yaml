@@ -1,0 +1,22 @@
+version: '2'
+
+networks: 
+  fabnet:
+
+services:
+
+  orderer.example.com:
+    env_file:
+      - fabric-network.env
+    image: hyperledger/fabric-orderer:x86_64-1.1.0
+    container_name: orderer.example.com
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ${CHANN_ART_DIR}/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ${ORDERER_CERTS}/msp:/var/hyperledger/orderer/msp
+      - ${ORDERER_CERTS}/tls:/var/hyperledger/orderer/tls
+    ports:
+      - 7050:7050
+    networks:
+      - fabnet
