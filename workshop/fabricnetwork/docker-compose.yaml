@@ -24,7 +24,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     volumes:
         - /var/run/:/host/var/run/
-        - ./../chaincode/:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
+        - ${CHAINCODE}:/opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go
         - ${CRYPTO_CONFIGROOT}:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
         - ${CHANN_ART_DIR}:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
