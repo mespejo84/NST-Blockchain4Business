@@ -41,6 +41,3 @@ echo "INSTALL YEOMAN"
 npm install -g yo
 echo "INSTALL PLAYGROUND"
 npm install -g composer-playground
-
-echo "INSTALL COMPOSER"
-sudo apt install composer
