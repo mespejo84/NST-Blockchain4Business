@@ -128,7 +128,7 @@ $ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer
 $ peer chaincode install -n licensecc -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go
 ```
 
-    > **NodeJs** To install a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory
+> **NodeJs** To install a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory
 ```
 $ peer chaincode install -n licensecc -v 1.0 -l node -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/javascript
 ```
@@ -139,7 +139,7 @@ $ peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $TLSCADI
 ```
 Now, the chaincode is ready to use in the network, but because it is only installed on the peer for the Organization 1, all the requests needs to be from this peer.
 
-    > **NodeJs** To instantiate a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory. If you previously deployed a go chaincode, it is probable that you face some troubles to deploy a nodejs chaincode. The best and easy solution is to delete all images and download again (you can do this running docker system prune -a, take in account that this command will delete ALL images)
+> **NodeJs** To instantiate a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory. If you previously deployed a go chaincode, it is probable that you face some troubles to deploy a nodejs chaincode. The best and easy solution is to delete all images and download again (you can do this running docker system prune -a, take in account that this command will delete ALL images)
 ```
 $ peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $TLSCADIR -C mychannel -n licensecc -l node -v 1.0 -c '{"Args":["init"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"
 ```
