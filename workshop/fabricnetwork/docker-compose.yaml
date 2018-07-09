@@ -86,6 +86,9 @@ services:
       - CORE_PEER_ADDRESS=peer0.${ORG1}:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.${ORG1}:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_CHAINCODE_STARTUPTIMEOUT=3000s
+      - CORE_CHAINCODE_LOGGING_LEVEL=debug
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     volumes:
@@ -135,6 +138,9 @@ services:
       - CORE_PEER_ADDRESS=peer0.${ORG2}:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.${ORG2}:7051
       - CORE_PEER_LOCALMSPID=Org2MSP
+      - CORE_CHAINCODE_STARTUPTIMEOUT=3000s
+      - CORE_CHAINCODE_LOGGING_LEVEL=debug
+      - CORE_CHAINCODE_LOGGING_SHIM=debug
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     volumes:

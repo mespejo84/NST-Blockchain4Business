@@ -1,0 +1,14 @@
+{
+  "name": "chaincode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node chaincode.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fabric-shim": "^1.1.2"
+  }
+}

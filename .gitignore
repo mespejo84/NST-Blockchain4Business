@@ -1,2 +1,3 @@
 /workshop/crypto-config/**
 /workshop/fabricnetwork/channel-artifacts/**
+/workshop/chaincode/javascript/node_modules/**

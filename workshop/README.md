@@ -1,20 +1,6 @@
-## INSTALL PREREQUISITES
-
-* Grant execute permissions to file "installcomposer.sh"
-```
-$ chmod +rwx ./installcomposer.sh
-```
-* Run the script
-```
-$ HOME_PATH=/replace_your_home_path ./installcomposer.sh
-```
-$nbsp;
-### Notes
-* Do not run the script with root user or using sudo command, the script will prompt the root password when need it.
-* The home path should be something like this "/home/nst"
-* Once the script finish, logout and login again to refresh some path variables
-
 # Configure Hyperledger Fabric network and deploy chaincode
+This page will try to guide you step by step through the process to create, install and deploy a Hyperledger Fabric network using Docker containers.
+Also, include chaincode examples and will help you to install and instantiate those chaincodes in the network on both, go and nodejs, languages.
 
 ## Download platform specific binaries 
 ```
@@ -99,6 +85,7 @@ To make more easy and shorter the next command, we will set a new environment va
 ```
 $ TLSCADIR=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
+
 ## Configure the network
 With the files generated previously we will create and configure the channel in the network.
 ### Create the channel
@@ -140,13 +127,26 @@ $ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer
 ```
 $ peer chaincode install -n licensecc -v 1.0 -p github.com/hyperledger/fabric/examples/chaincode/go
 ```
+
+    > **NodeJs** To install a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory
+```
+$ peer chaincode install -n licensecc -v 1.0 -l node -p /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/javascript
+```
+
 ### Instantiate the chaincode in the channel
 ```
 $ peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $TLSCADIR -C mychannel -n licensecc -v 1.0 -c '{"Args":["init"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"
 ```
 Now, the chaincode is ready to use in the network, but because it is only installed on the peer for the Organization 1, all the requests needs to be from this peer.
 
+    > **NodeJs** To instantiate a nodejs chaincode we need to specify that on the command, also we need the absolute path to the directory. If you previously deployed a go chaincode, it is probable that you face some troubles to deploy a nodejs chaincode. The best and easy solution is to delete all images and download again (you can do this running docker system prune -a, take in account that this command will delete ALL images)
+```
+$ peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile $TLSCADIR -C mychannel -n licensecc -l node -v 1.0 -c '{"Args":["init"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"
+```
+
 ## Interact with the chaincode 
+The next step is interact with the chaincode. This will vary according your chaincode definition. This commands are only for the chaincode presented in this repository.
+
 Set the initial data:
 ```
 $ peer chaincode invoke -o orderer.example.com:7050  --tls --cafile $TLSCADIR  -C mychannel -n licensecc -c '{"Args":["create"]}'
@@ -159,3 +159,20 @@ Change ownership
 ```
 $ peer chaincode invoke -o orderer.example.com:7050  --tls --cafile $TLSCADIR  -C mychannel -n licensecc -c '{"Args":["transfer","abc123","moises"]}'
 ```
+
+# Hyperledger Composer (TODO)
+## INSTALL PREREQUISITES
+
+* Grant execute permissions to file "installcomposer.sh"
+```
+$ chmod +rwx ./installcomposer.sh
+```
+* Run the script
+```
+$ HOME_PATH=/replace_your_home_path ./installcomposer.sh
+```
+$nbsp;
+### Notes
+* Do not run the script with root user or using sudo command, the script will prompt the root password when need it.
+* The home path should be something like this "/home/nst"
+* Once the script finish, logout and login again to refresh some path variables
